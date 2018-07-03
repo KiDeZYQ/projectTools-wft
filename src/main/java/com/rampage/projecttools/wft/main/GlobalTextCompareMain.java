@@ -3,12 +3,16 @@ package com.rampage.projecttools.wft.main;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.rampage.projecttools.util.IOUtils;
 import com.rampage.projecttools.util.StringUtils;
@@ -19,7 +23,8 @@ import com.rampage.projecttools.util.StringUtils;
  * v1.0.0 
  * 		2018-01-05 特性： 支持beyond compare外的错行匹配（即本来是同样内容，只不过行号错开了） + 支持自定义匹配规则
  * V1.0.1 
- * 		2018-06-29特性：
+ * 		2018-07-03特性：修改清分文件的对比模式，因为可能排序条件不一样导致相同的记录在不同的清分文件，从而导致比对失败。
+ * 		这里修改比较逻辑，先将所有记录放入list，然后再进行比较
  * @author ziyuqi
  *
  */
@@ -58,13 +63,76 @@ public class GlobalTextCompareMain {
 		}
 		
 		// 原始版本必须要左右两侧文件按顺序逐个比对
-		for (int i = 0; i < LEFT_FILES.size(); i++) {
+		/*for (int i = 0; i < LEFT_FILES.size(); i++) {
 			// TrimIgnoreCaseComparator CebCleanFileTextComparator
 			compareFile(new File(LEFT_FILES.get(i)), new File(RIGHT_FILES.get(i)), new CebCleanFileTextComparator());
-		}
+		}*/
+		// List比较
+		compareFiles(new CebCleanFileTextComparator());
 		System.out.println(
 		        "---------------------------------------------文件比较结束---------------------------------------------");
 	}
+	
+
+	private static void compareFiles(CebCleanFileTextComparator cebCleanFileTextComparator) {
+		List<String> fileStr1 = LEFT_FILES.stream().map(file -> {
+			return getCleaningDatas(file);
+		}).flatMap(list -> list.stream()).collect(Collectors.toList());
+		
+		List<String> fileStr2 = RIGHT_FILES.stream().map(file -> {
+			return getCleaningDatas(file);
+		}).flatMap(list -> list.stream()).collect(Collectors.toList());
+		
+		for (String str1 : fileStr1) {
+			if (!fileStr2.contains(str1)) {
+				System.out.println("左侧文件存在【" + str1 + "】在右侧文件中不存在！");
+			}
+		}
+		
+		for (String str2 : fileStr2) {
+			if (!fileStr1.contains(str2)) {
+				System.out.println("右侧文件存在【" + str2 + "】在左侧文件中不存在！");
+			}
+		}
+	}
+
+	/**
+	 * 得到可比较的清分数据
+	 * @param file 文件名称
+	 * @return 数据列列表
+	 */
+	private static List<String> getCleaningDatas(String file) {
+		List<String> oneFileStr = new ArrayList<>();
+		String line = null;
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), CHARSET))) {
+			line = br.readLine();
+			while (line != null) {
+				if (StringUtils.isEmpty(line)) {
+					line = br.readLine();
+					continue;
+				}
+				if (line.startsWith("结算单号")) {
+					line = br.readLine();
+					continue;
+				}
+				String[] strArr = line.split(",");
+				StringBuilder sb = new StringBuilder();
+				for (int i=1; i<strArr.length; i++) {
+					if (i != strArr.length - 1) {
+						sb.append(strArr[i]);
+					} else {
+						sb.append(strArr[i].substring(0, 13));
+					}
+				}
+				oneFileStr.add(sb.toString());
+				line = br.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return oneFileStr;
+	}
+
 
 	/**
 	 * 比较文件
