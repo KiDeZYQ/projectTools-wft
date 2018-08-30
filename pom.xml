@@ -83,5 +83,10 @@
 		  <artifactId>activemq-all</artifactId>
 		  <version>5.8.0</version>
 		</dependency>
+		<dependency>
+            <groupId>org.apache.rocketmq</groupId>
+	        <artifactId>rocketmq-client</artifactId>
+	        <version>4.3.0</version>
+        </dependency>
 	</dependencies>
 </project>
