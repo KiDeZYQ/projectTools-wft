@@ -45,7 +45,7 @@ public class PublishMain {
     
     private static final String CLE3_SERVER_PATH = "E:/cle3/webapps";
     
-    private static final List<String> NOT_NEED_DELETE_FILES = Arrays.asList("app-config.properties", "cache.properties", "log4j2.xml", "zjb@111111.pfx", "epay-sdk-1.0.jar", "koal_sun-1.0.jar");
+    private static final List<String> NOT_NEED_DELETE_FILES = Arrays.asList("MANIFEST.MF", "app-config.properties", "cache.properties", "log4j2.xml", "zjb@111111.pfx", "epay-sdk-1.0.jar", "koal_sun-1.0.jar", "cmq-config.properties");
     
     private static final List<String> NOT_NEED_COPY_FILES = Arrays.asList("log4j2.xml");
     
@@ -58,7 +58,7 @@ public class PublishMain {
     public static void run() {
 		long startTime = System.currentTimeMillis();
         // STEP1: 调用maven打包
-    	processMavenInstall();
+    	// processMavenInstall();
         
         // STEP2: 拷贝maven打包后的文件
         processFileCopy();
@@ -123,16 +123,18 @@ public class PublishMain {
         futures.add(EXECUTORS.submit(new CopyTask(baseSrcDir, baseDestDir)));   		// service-war
         baseSrcDir = schemaMap.get(Context.ACC_WAR_PROJECT) + File.separator + "WebContent";
         baseDestDir = ACC_SERVICE_PATH + File.separator + schemaMap.get(Context.ACC);
-        futures.add(EXECUTORS.submit(new CopyTask(baseSrcDir, baseDestDir)));   		// acc-war
+        // futures.add(EXECUTORS.submit(new CopyTask(baseSrcDir, baseDestDir)));   		// acc-war
         baseSrcDir = schemaMap.get(Context.ADMIN_WAR_PROJECT) + File.separator + "WebContent";
         baseDestDir = ADMIN_SERVER_PATH + File.separator + schemaMap.get(Context.ADMIN);
         futures.add(EXECUTORS.submit(new CopyTask(baseSrcDir, baseDestDir))); 			// admin-war
-        
-        baseSrcDir = schemaMap.get(Context.CLE_WAR_PROJECT) + File.separator + "WebContent";
-        baseDestDir = CLE_SERVER_PATH + File.separator + schemaMap.get(Context.CLE);
-        // futures.add(EXECUTORS.submit(new CopyTask(baseSrcDir, baseDestDir))); 			// cle-war
-        /* baseDestDir = CLE2_SERVER_PATH + File.separator + schemaMap.get(Context.CLE);
+                
+       /* baseSrcDir = schemaMap.get(Context.CLE1_WAR_PROJECT) + File.separator + "WebContent";
+        baseDestDir = CLE_SERVER_PATH + File.separator + schemaMap.get(Context.CLE1);
+        futures.add(EXECUTORS.submit(new CopyTask(baseSrcDir, baseDestDir))); 			// cle-war
+        baseSrcDir = schemaMap.get(Context.CLE2_WAR_PROJECT) + File.separator + "WebContent";
+        baseDestDir = CLE2_SERVER_PATH + File.separator + schemaMap.get(Context.CLE2);
         futures.add(EXECUTORS.submit(new CopyTask(baseSrcDir, baseDestDir))); 			// cle2-war
+*/        /**
         baseDestDir = CLE3_SERVER_PATH + File.separator + schemaMap.get(Context.CLE);
         futures.add(EXECUTORS.submit(new CopyTask(baseSrcDir, baseDestDir))); 			// cle3-war
         */        

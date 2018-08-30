@@ -44,7 +44,7 @@ public class SVNMain {
 	/**
 	 * 新的项目的本地地址
 	 */
-	private static final String WORKSPACE_PATH = "E:/workspacce/ceb20180625";
+	private static final String WORKSPACE_PATH = "E:/workspacce/2018/08/01_ceb20180807";
 	
 	/**
 	 * SVN用户名
@@ -59,7 +59,7 @@ public class SVNMain {
 	/**
 	 * 分支拉取注释
 	 */
-	private static final String COMMIT_COMMENT = "光大2018年6月V3.2版本";
+	private static final String COMMIT_COMMENT = "光大8月份版本分支";
 	
 	/**
 	 * 版本号后缀
@@ -125,11 +125,11 @@ public class SVNMain {
 		private static final long serialVersionUID = 1L;
 		{					
 			// -------------------------------光大
-			put("http://192.168.1.6:8080/svn/spXmas/code/public-war/sppay-admin-war/trunk", "http://192.168.1.6:8080/svn/spXmas/code/public-war/sppay-admin-war/branches/ceb_v3.5_20180625 ");		// admin-war
-			put("http://192.168.1.6:8080/svn/spXmas/code/war/sppay-ceb-service-war/trunk", "http://192.168.1.6:8080/svn/spXmas/code/war/sppay-ceb-service-war/branches/ceb_v3.5_20180625 ");			// service-war
-			put("http://192.168.1.6:8080/svn/spXmas/code/war/sppay-ceb-acc-war/trunk", "http://192.168.1.6:8080/svn/spXmas/code/war/sppay-ceb-acc-war/branches/ceb_v3.5_20180625 ");					// acc-war
-			put("http://192.168.1.6:8080/svn/spXmas/code/cle/trunk", "http://192.168.1.6:8080/svn/spXmas/code/cle/branches/ceb_v3.5_20180625 ");														// cle
-			put("http://192.168.1.6:8080/svn/spXmas/code/cle-sub/sppay-cle-ceb-service/trunk", "http://192.168.1.6:8080/svn/spXmas/code/cle-sub/sppay-cle-ceb-service/branches/ceb_v3.5_20180625 ");	// cle-sub
+			put("http://192.168.1.6:8080/svn/spXmas/code/public-war/sppay-admin-war/trunk", "http://192.168.1.6:8080/svn/spXmas/code/public-war/sppay-admin-war/branches/ceb_v3.7_20180807");		// admin-war
+			put("http://192.168.1.6:8080/svn/spXmas/code/war/sppay-ceb-service-war/trunk", "http://192.168.1.6:8080/svn/spXmas/code/war/sppay-ceb-service-war/branches/ceb_v3.7_20180807");			// service-war
+			put("http://192.168.1.6:8080/svn/spXmas/code/war/sppay-ceb-acc-war/trunk", "http://192.168.1.6:8080/svn/spXmas/code/war/sppay-ceb-acc-war/branches/ceb_v3.7_20180807");					// acc-war
+			put("http://192.168.1.6:8080/svn/spXmas/code/cle/trunk", "http://192.168.1.6:8080/svn/spXmas/code/cle/branches/ceb_v3.7_20180807");														// cle
+			put("http://192.168.1.6:8080/svn/spXmas/code/cle-sub/sppay-cle-ceb-service/trunk", "http://192.168.1.6:8080/svn/spXmas/code/cle-sub/sppay-cle-ceb-service/branches/ceb_v3.7_20180807");	// cle-sub
 			// put("http://192.168.1.6:8080/svn/spXmas/code/public-war/sppay-admin-common/trunk", "http://192.168.1.6:8080/svn/spXmas/code/public-war/sppay-admin-common/branches/ceb_v3.3_20180507 "); // admin-common
 		
 			// --------------------------------兴业
@@ -170,7 +170,7 @@ public class SVNMain {
 			
 			// STEP6: 执行publish流程
 			System.out.println("----------------------------------------------------------STEP6: 开始执行部署流程----------------------------------------------");
-			doPublish();		// 必须保证PublishMain中的路径已经修改正确
+			// doPublish();		// 必须保证PublishMain中的路径已经修改正确
 		} catch (Exception svne) {
 			svne.printStackTrace();
 		}

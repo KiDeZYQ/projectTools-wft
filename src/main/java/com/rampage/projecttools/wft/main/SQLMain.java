@@ -48,7 +48,7 @@ public class SQLMain {
     /**
      * 待生成的目标文件所在的路径
      */
-    private static final String DEST_DIR = "F:/需求/ceb20180625光大6月底版本/ceb_20180625/SQL";
+    private static final String DEST_DIR = "F:/需求/2018/08/01_光大8月全量版本/ceb_20180807/patch/20180828/SQL";
     
     private static final String SOURCE_DDL_DIR = "D:/sql脚本/DDL/2018";
     
@@ -78,7 +78,7 @@ public class SQLMain {
     
     public static void main(String[] args) throws ParseException {
     	System.out.println("---------------------------------------------------------STEP1: 生成SQL文件开始-------------------------------------------------------");
-    	// generateSQLFile(DATE_FORMATER.parse("2018-06-04 00:00:00"), DATE_FORMATER.parse("2018-06-25 16:10:00"), 1);
+    	// generateSQLFile(DATE_FORMATER.parse("2018-07-10 19:41:00"), DATE_FORMATER.parse("2018-08-07 14:04:00"), 1);
     	System.out.println("---------------------------------------------------------STEP1: 生成SQL文件结束-------------------------------------------------------");
     	System.out.println("---------------------------------------------------------STEP2: 校验SQL文件开始-------------------------------------------------------");
         checkSQLSyntax();  // 校验schema
